@@ -1,0 +1,29 @@
+{
+  "name": "kscript",
+  "version": "1.0.0",
+  "description": "A pipelined, fully functional programming language that compiles to JavaScript",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "watch": "nodemon lib/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrandonDyer64/kscript.git"
+  },
+  "keywords": [
+    "kscript"
+  ],
+  "author": "Brandon Dyer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BrandonDyer64/kscript/issues"
+  },
+  "homepage": "https://github.com/BrandonDyer64/kscript#readme",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
