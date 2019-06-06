@@ -7,6 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
+    "build": "nodemon --ignore tlib/ -e js,ks tlib/build.js",
     "watch": "nodemon lib/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
