@@ -1,7 +1,5 @@
 let _;
-
-
- let fs = require('fs')
+let fs = require('fs')
  let { compile } = require('../tlib/index')
 
 const CompFile = (filename) => _ => (_=>{
@@ -13,5 +11,3 @@ return _;})(_)
 _=CompFile('build')(_)
 
 _=CompFile('index')(_)
-
-

@@ -84,7 +84,7 @@ x
 
 This:
 
-```js 
+```js
 {
   a
   b
@@ -95,8 +95,8 @@ Compiles to this:
 
 ```js
 _ = ( _ => {
-  a(_)
-  b(_)
+  _ = a(_)
+  _ = b(_)
   return _
 })(_)
 ```
@@ -116,11 +116,11 @@ _ = ( _ => {
 }
 // : 1
 
-// And you can set a variable to the value of a scope [proposed]
+// And you can set a variable to the value of a scope
 | 1
-; let x << {
+; let x = ({
   Add(2)
-}
+})(_)
 // : 1
 // x: 3
 ```

@@ -1,8 +1,4 @@
 let _;
-
-
-
-
 const replace = (a, b) => _ => (_=>{
   _=_.replace(a, b)
 return _;})(_)
@@ -35,28 +31,20 @@ const compile = _ => (_=>{
  _= replace(/\n([^\|\;\:\n])( *)([^\n]*) \.(\S*?)(?=\n)/g, "\n;$2_.$4=$1$3(_.$4)")(_)
  _= replace(/\n([^\|\;\:\n])( *)([^\n]*)/g, "\n;$2_=$1$3(_)")(_)
  _= replace(/\n[\|\;\:]/g, "\n")(_)
+ _= replace(/\n *\(/g, '\n;(')(_)
   _=replace(/%STR\[(\d+?)\]%/g,
  (m, num) => escapes[num]
   )(_)
  _= replace(/\n *#/g,'\n')(_)
+  _=_.trim()
  _= "let _;\n" +(_)
 return _;})(_)
 
 _=`
-; let FizzBuzz = (i) => {
-  if (i > 0) {
-    ; let out = ({
-      if (i % 3 == 0) | _ + "Fizz"
-      if (i % 5 == 0) | _ + "Buzz"
-      if (!_) | i
-    })("")
-    out + '\\n' +
-    FizzBuzz(i - 1)
-  } else _
+| 1
+; {
+  2 +
 }
-
-| ""
-FizzBuzz(100)
 console.log
 `
 
@@ -67,5 +55,3 @@ _=eval(_)
  } catch(e) {console.log(e)}
 
  module.exports = { compile }
-
-

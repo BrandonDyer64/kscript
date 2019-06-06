@@ -32,28 +32,20 @@
   replace(/\n([^\|\;\:\n])( *)([^\n]*) \.(\S*?)(?=\n)/g, "\n;$2_.$4=$1$3(_.$4)")
   replace(/\n([^\|\;\:\n])( *)([^\n]*)/g, "\n;$2_=$1$3(_)")
   replace(/\n[\|\;\:]/g, "\n")
+  replace(/\n *\(/g, '\n;(')
   | replace(/%STR\[(\d+?)\]%/g,
     ; # (m, num) => escapes[num]
   : )
   replace(/\n *#/g,'\n')
+  | _.trim()
   "let _;\n" +
 }
 
 | `
-; let FizzBuzz = (i) => {
-  if (i > 0) {
-    ; let out = ({
-      if (i % 3 == 0) | _ + "Fizz"
-      if (i % 5 == 0) | _ + "Buzz"
-      if (!_) | i
-    })("")
-    out + '\\n' +
-    FizzBuzz(i - 1)
-  } else _
+| 1
+; {
+  2 +
 }
-
-| ""
-FizzBuzz(100)
 console.log
 `
 
