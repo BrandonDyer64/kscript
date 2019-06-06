@@ -1,4 +1,4 @@
-# kscript
+# KScript
 
 A pipelined, fully functional programming language that compiles to JavaScript
 
@@ -143,7 +143,3 @@ Add2
 Add(3)
 // : 6
 ```
-
-
-
-
