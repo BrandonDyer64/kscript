@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "nodemon --ignore tlib/ -e js,ks tlib/build.js",
+    "build": "node lib/build.js",
     "watch": "nodemon lib/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,5 +26,8 @@
   "homepage": "https://github.com/BrandonDyer64/kscript#readme",
   "devDependencies": {
     "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "pegjs": "^0.10.0"
   }
 }

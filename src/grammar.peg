@@ -3,6 +3,9 @@
   const ast = false;
 }
 
+file
+  = prog:program { return 'let _={};\n' + prog }
+
 program
   = lines:line* { return ast ? lines : lines.join('\n') }
 
@@ -30,8 +33,10 @@ expression
 factor
   = jsFun
   / fun
+  / object
   / ifStatement
   / assignment
+  / rawJS
   / "(" _ expr:expression _ ")" { return '(' + expr + ')' }
   / literal
   / mathop
@@ -44,7 +49,7 @@ varName
   = [a-zA-Z_$][a-zA-Z0-9_$.]* {return text()}
 
 mathop
-  = ('++'/[\+\-\*\/\%])
+  = ('=='/'++'/[\+\-\*\/\%,])
 
 scope
   = "{" _ "\n"* _ program:program _ '\n'* _ "}" { return ast
@@ -59,20 +64,20 @@ fun
 jsFun
   = args:argList _ "=>" _ scope:scope { return ast
     ? tv("jsFun", {args, scope})
-    : '(' + args + ")=>{let _;" + scope + '}' }
+    : '(' + args + ")=>{let _={};" + scope + '}' }
 
 argList
-  = "(" params:[a-zA-Z_$, ]* ")" { return params.join('') }
+  = "(" params:[a-zA-Z_$, =0-9]* ")" { return params.join('') }
 
 assignment
   = type:("let "/"var ")? _ name:varName _ "=" _ expr:expression { return ast
     ? tv("assignment", { type:type?type.trim():null, name, expr } )
-    : ((type||'').replace('var','const') + name + ' = ' + expr)}
+    : ((type||'').replace('let','const') + name + ' = ' + expr)}
 
 ifStatement
   = cond:('if' _ '(' _ expression _ ')') _ statement:line _ els:('else' _ line)? { return ast
   ? ''
-  : ('((' + cond[4] + ') ? (' + statement + ') : ' + (els ? '(' + els[2] + ')' : '(_=>(_))') + ')')}
+  : ('((' + cond[4] + ') ? (_=>{' + statement + ';return _;}) : ' + (els ? '(_=>{' + els[2] + ';return _;})' : '(_=>(_))') + ')')}
 
 literal
   = number
@@ -86,3 +91,15 @@ string
 
 _ "whitespace"
   = [ \t\r]*
+
+object
+  = 'obj{' _ pairs:(kvpair)* _ '}' { return '{' + pairs.join(',') + '}' }
+
+kvpair
+  = name:varName _ ':' _ value:expression _ (';'/'\n')? '\n'* {return name + ':' + value }
+
+rawJS
+  = 'js' _ '{' + inner:innerRawJS + '}' { return inner }
+
+innerRawJS
+  = [^{}]+ ('{' innerRawJS '}' innerRawJS*)* { return text() }
