@@ -1,5 +1,7 @@
 # KScript
 
+### Rewriting. Docs are invalid
+
 A pipelined, fully functional programming language that compiles to JavaScript
 
 ```js
