@@ -2,10 +2,14 @@
 ; let fs = require('fs')
 
 < fs.readFileSync('./src/grammar.peg', 'utf8')
-< pegjs.generate(_, obj{ output: 'source' })
+< pegjs.generate(_, obj{
+  output: 'source';
+  format: 'umd';
+  exportVar: 'module.exports';
+})
 ; fs.writeFileSync('./lib/index.js', _)
 
-; let compile = reqiure('../lib/index.js')
+; let compile = require('../lib/index.js').parse
 
 ; let CompFile = (name) => {
   < fs.readFileSync('./src/' + name + '.ks', 'utf8')
@@ -14,3 +18,4 @@
 }
 
 ; CompFile('build')
+; CompFile('repl')

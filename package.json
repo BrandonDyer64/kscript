@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "node lib/build.js",
+    "repl": "node lib/repl",
     "watch": "nodemon lib/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
